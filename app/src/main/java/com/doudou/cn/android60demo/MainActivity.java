@@ -3,7 +3,6 @@ package com.doudou.cn.android60demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.doudou.cn.android60demo.broast.MyPlayService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "点击圆形图标", Toast.LENGTH_SHORT).show();
             }
         });
-        startService(new Intent(MainActivity.this, MyPlayService.class));
-        for (int i=0; i< 3;i++) {
-            startService(new Intent(MainActivity.this, MyPlayService.class));
-        }
+
     }
 
     @Override

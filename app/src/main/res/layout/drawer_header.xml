@@ -23,7 +23,7 @@
     android:paddingTop="@dimen/status_bar_height"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <com.doudou.cn.android60demo.widgets.CircleImageView
         android:id="@+id/avatar"
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -32,6 +32,7 @@
         tools:src="@drawable/ic_launcher" />
 
     <TextView
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/email"

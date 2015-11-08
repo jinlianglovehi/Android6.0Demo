@@ -54,7 +54,6 @@ public class WelcomeActivity extends AppCompatActivity {
             items.add(new ViewModel("Item" + i, "http://h.hiphotos.baidu.com/image/w%3D310/sign=8eaa413779ec54e741ec1c1f89399bfd/9d82d158ccbf6c812f9fe0e1be3eb13533fa400b.jpg"));
         }
 
-
     }
 
     @Bind(R.id.recycler)
