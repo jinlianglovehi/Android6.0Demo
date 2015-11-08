@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.doudou.cn.android60demo.testEasyRecyClerView.Person;
 import com.doudou.cn.android60demo.testEasyRecyClerView.PersonAdapter;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.adapter.DynamicPagerAdapter;
 
 import java.util.ArrayList;
 
@@ -27,13 +30,23 @@ public class EasyRecyClerView extends Activity implements
         RecyclerArrayAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener
 
 {
-    private static  final String TAG = EasyRecyClerView.class.getSimpleName();
+    private static final String TAG = EasyRecyClerView.class.getSimpleName();
     @Bind(R.id.recyclerView2)
     EasyRecyclerView recyclerView2;
+
+    RollPagerView mRollViewPager;//图片的轮滑的效果图
+
     private Handler handler = new Handler();
 
     private int page = 0;
     private PersonAdapter adapter;
+
+    /**
+     * recyclerView 头部添 轮滑的动画的信息
+     *
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +56,23 @@ public class EasyRecyClerView extends Activity implements
         setContentView(R.layout.activity_easyrecyclerview);
         ButterKnife.bind(this);
         //recyclerView2.add
+
+
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setAdapterWithProgress(adapter = new PersonAdapter(this));
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             @Override
             public View onCreateView(ViewGroup parent) {
-                return LayoutInflater.from(parent.getContext()).inflate(R.layout.view_error,null);
+                  return LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_rollviewpager, null);
+               // return mRollViewPager;
             }
 
             @Override
             public void onBindView(View headerView) {
-
+                mRollViewPager = (RollPagerView) headerView.findViewById(R.id.roll_view_pager);
+                mRollViewPager.setAnimationDurtion(1000);
+                mRollViewPager.setAdapter(new TestAdapter());
             }
         });
         adapter.setMore(R.layout.view_more, this);
@@ -81,6 +99,9 @@ public class EasyRecyClerView extends Activity implements
 //            }
 //        });
         recyclerView2.setRefreshListener(this);
+
+
+
         onRefresh();
     }
 
@@ -114,7 +135,7 @@ public class EasyRecyClerView extends Activity implements
     @Override
     public void onRefresh() {
 
-        Log.i("onrefresh","onrefresh");
+        Log.i("onrefresh", "onrefresh");
         page = 0;
         handler.postDelayed(new Runnable() {
             @Override
@@ -141,4 +162,28 @@ public class EasyRecyClerView extends Activity implements
             }
         }, 1000);
     }
+
+
+    private class TestAdapter extends DynamicPagerAdapter {
+        private int[] imgs = {
+                R.drawable.img1,
+                R.drawable.img2,
+                R.drawable.img3,
+                R.drawable.img4,
+        };
+        @Override
+        public View getView(ViewGroup container, int position) {
+            ImageView view = new ImageView(container.getContext());
+            view.setImageResource(imgs[position]);
+            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return imgs.length;
+        }
+    }
 }
+
