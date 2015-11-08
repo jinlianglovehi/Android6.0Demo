@@ -28,6 +28,7 @@ import com.doudou.cn.android60demo.R;
 import com.doudou.cn.android60demo.model.ViewModel;
 import com.doudou.cn.android60demo.testEasyRecyClerView.Person;
 import com.doudou.cn.android60demo.testEasyRecyClerView.PersonAdapter;
+import com.doudou.cn.android60demo.widgets.CircleImageView;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.rollviewpager.RollPagerView;
@@ -71,7 +72,6 @@ public class DouMainActivity extends AppCompatActivity implements
 
     @Bind(R.id.recycler)
     EasyRecyclerView recyclerView2;
-
 
     private RollPagerView mRollViewPager;
     private PersonAdapter adapter;
@@ -118,15 +118,42 @@ public class DouMainActivity extends AppCompatActivity implements
         TextView  email = (TextView) drawer_head.findViewById(R.id.email);
         email.setText("12242384738478@qq.com");
 
+        CircleImageView avator = (CircleImageView) drawer_head.findViewById(R.id.avatar);
+        avator.setImageResource(R.drawable.ic_launcher);
         // 获取memu 的菜单 设备menu 的设置
         Menu menu = navigationView.getMenu();
+        navigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        MenuItem item = menu.getItem(0);
-        item.setTitle("nihao");
-        item.setIcon(R.drawable.ic_launcher);
+            }
+        });
 
-        MenuItem item2 = menu.getItem(2);
-        item2.setChecked(true);
+        for(int i=0;i< menu.size();i++){
+
+          MenuItem item = menu.getItem(i);
+            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return true;
+                }
+            });
+
+        }
+
+
+//        MenuItem item = menu.getItem(0);
+//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Toast.makeText(getApplicationContext(),"被点击",Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
+//        item.setTitle("nihao");
+//        item.setIcon(R.drawable.ic_launcher);
+//        MenuItem item2 = menu.getItem(2);
+//        item2.setChecked(true);
     }
 
     private void initRecyClerViewData() {
@@ -307,6 +334,8 @@ public class DouMainActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
+        ButterKnife.unbind(this);
         super.onDestroy();
+
     }
 }
