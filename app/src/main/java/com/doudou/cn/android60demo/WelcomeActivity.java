@@ -56,6 +56,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+
     @Bind(R.id.recycler)
     RecyclerView recycler;
 
@@ -82,6 +83,8 @@ public class WelcomeActivity extends AppCompatActivity {
          * 测试代码的操作
          */
         initRecyClerViewData();
+
+        //tiajiatag
 
     }
 
